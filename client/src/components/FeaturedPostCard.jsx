@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock, Tag } from "lucide-react";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 import { useContext, useMemo } from "react";
 
 const FeaturedPostCard = () => {
-   const { posts } = useContext(UserContext);
+   const { posts } = useContext(AppContext);
 
    // Sort posts by date descending (newest first)
    const featured = useMemo(() => {

@@ -1,9 +1,9 @@
 import PostCard from "./PostCard";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 import { useContext } from "react";
 
 const SuggestedPosts = ({ currentSlug }) => {
-   const { posts } = useContext(UserContext);
+   const { posts } = useContext(AppContext);
    const suggestions = posts
       .filter(post => post.slug !== `${currentSlug}`)
       .slice(0, 3);

@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Loader } from "lucide-react";
 import PostCard from "./PostCard";
 import CategoryRow from "./CategoryRow";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 
 const RecentPosts = () => {
-   const { getAllPosts, pagination, posts, loading } = useContext(UserContext);
+   const { getAllPosts, pagination, posts, loading } = useContext(AppContext);
    const [currentPage, setCurrentPage] = useState(1);
    const [activeCategory, setActiveCategory] = useState("All");
 

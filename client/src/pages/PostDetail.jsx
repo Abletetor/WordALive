@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import CommentSection from "../components/CommentSection";
 import SuggestedPosts from "../components/SuggestedPosts";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 import moment from "moment";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ const PostDetail = () => {
       userToken,
       liked,
       setLiked,
-   } = useContext(UserContext);
+   } = useContext(AppContext);
 
    const { slug } = useParams();
    const navigate = useNavigate();

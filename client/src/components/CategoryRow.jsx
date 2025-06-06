@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import { Tag } from "lucide-react";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 
 const defaultCategories = [
    "Healing",
@@ -14,7 +14,7 @@ const defaultCategories = [
 ];
 
 const CategoryRow = ({ activeCategory, setActiveCategory }) => {
-   const { posts } = useContext(UserContext);
+   const { posts } = useContext(AppContext);
 
    // Extract all unique tags from posts
    const contextCategories = Array.from(

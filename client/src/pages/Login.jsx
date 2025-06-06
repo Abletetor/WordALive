@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import { LogIn, UserPlus, Loader } from "lucide-react";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import axios from 'axios';
 
 const Login = () => {
-   const { backendUrl, setUser, setUserToken } = useContext(UserContext);
+   const { backendUrl, setUser, setUserToken } = useContext(AppContext);
    const navigate = useNavigate();
    const [isSignUp, setIsSignUp] = useState(false);
    const [email, setEmail] = useState("");

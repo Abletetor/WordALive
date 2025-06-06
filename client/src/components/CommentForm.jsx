@@ -1,4 +1,3 @@
-// CommentForm.jsx
 import { useState } from "react";
 import { Send, Loader } from "lucide-react";
 import { toast } from 'react-toastify';

@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useCallback } from "react";
 
-export const UserContext = createContext();
+export const AppContext = createContext();
 
-const UserContextProvider = (props) => {
+const AppContextProvider = (props) => {
    const backendUrl = import.meta.env.VITE_BACKEND_URL;
    const [userToken, setUserToken] = useState(localStorage.getItem("userToken") || null);
 
@@ -78,10 +78,10 @@ const UserContextProvider = (props) => {
    };
 
    return (
-      <UserContext.Provider value={ value }>
+      <AppContext.Provider value={ value }>
          { props.children }
-      </UserContext.Provider>
+      </AppContext.Provider>
    );
 };
 
-export default UserContextProvider;
+export default AppContextProvider;

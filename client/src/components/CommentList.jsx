@@ -2,14 +2,14 @@ import { useState, useContext } from "react";
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { MoreVertical } from "lucide-react";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 import moment from 'moment';
 
 const CommentList = ({ comments }) => {
    const [menuOpenId, setMenuOpenId] = useState(null);
    const [editModeId, setEditModeId] = useState(null);
    const [editedText, setEditedText] = useState("");
-   const { backendUrl, userToken } = useContext(UserContext);
+   const { backendUrl, userToken } = useContext(AppContext);
 
    const currentUserId = userToken ? JSON.parse(atob(userToken.split('.')[1]))._id : null;
 

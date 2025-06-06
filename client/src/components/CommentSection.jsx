@@ -1,14 +1,14 @@
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 import { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../context/userContext';
+import { AppContext } from '../context/AppContext';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const CommentSection = ({ onCommentPosted }) => {
    const { slug } = useParams();
-   const { backendUrl, userToken } = useContext(UserContext);
+   const { backendUrl, userToken } = useContext(AppContext);
    const [comments, setComments] = useState([]);
 
    const fetchComments = async () => {

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { LogIn, Menu, X, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { AppContext } from "../context/AppContext";
 
 const navLinks = [
    { name: "Home", path: "/" },
@@ -12,7 +11,7 @@ const navLinks = [
 
 
 const Navbar = () => {
-   const { userToken, setUserToken } = useContext(UserContext);
+   const { userToken, setUserToken } = useContext(AppContext);
    const [isOpen, setIsOpen] = useState(false);
    const navigate = useNavigate();
 
