@@ -3,6 +3,7 @@ import { LogIn, Menu, X, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import SearchBar from "./SearchBar";
 
 const navLinks = [
    { name: "Home", path: "/" },
@@ -48,6 +49,7 @@ const Navbar = () => {
                         { link.name }
                      </NavLink>
                   )) }
+                  <SearchBar />
                </div>
 
                {/* Right: Auth + Mobile Menu */ }
@@ -106,6 +108,7 @@ const Navbar = () => {
 
                   {/* Mobile Links */ }
                   <div className="mt-12 flex flex-col gap-6">
+                     <SearchBar />
                      { navLinks.map((link) => (
                         <NavLink
                            key={ link.name }

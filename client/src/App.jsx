@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import About from './pages/About';
 import SalvationPage from './pages/SalvationPage';
+import SearchResults from './pages/SearchResults';
 
 const App = () => {
    return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path='/login' element={ <Login /> } />
             <Route path='/about' element={ <About /> } />
             <Route path="/salvation" element={ <SalvationPage /> } />
+            <Route path="/search" element={ <SearchResults /> } />
          </Routes>
          <Footer />
       </div>

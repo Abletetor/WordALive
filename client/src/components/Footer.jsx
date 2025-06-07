@@ -32,8 +32,8 @@ const Footer = () => {
             <div>
                <h4 className="text-white font-semibold mb-3">Quick Links</h4>
                <ul className="space-y-2 text-sm">
-                  <li><Link to="/" className="hover:text-purple-500 transition">Home</Link></li>
-                  <li><Link to="/about" className="hover:text-purple-500 transition">About</Link></li>
+                  <li><Link to="/" onClick={ () => scrollTo(0, 0) } className="hover:text-purple-500 transition">Home</Link></li>
+                  <li><Link to="/about" onClick={ () => scrollTo(0, 0) } className="hover:text-purple-500 transition">About</Link></li>
                </ul>
             </div>
 

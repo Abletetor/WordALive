@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { MessageSquareQuote, Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { quotes } from '../assets/assets';
+import axios from 'axios';
 import fallbackAvatar from '../assets/Pastorchris.jpg';
 
 const LOCAL_STORAGE_KEY = 'dailyQuote';
+const QUOTES_API_URL = 'https://raw.githubusercontent.com/Abletetor/WordALive/master/qoute/quotes.json';
 
-const getTodayKey = () => {
-   const today = new Date();
-   return today.toISOString().split('T')[0];
-};
+const getTodayKey = () => new Date().toISOString().split('T')[0];
 
 const QuoteOfTheDay = () => {
    const [quote, setQuote] = useState(null);
@@ -21,20 +19,21 @@ const QuoteOfTheDay = () => {
    useEffect(() => {
       if (!quote?.text) return;
 
-      let index = 0;
       setTypedText('');
+      let index = 0;
+      const fullText = quote.text;
       const interval = setInterval(() => {
-         setTypedText((prev) => prev + quote.text.charAt(index));
          index++;
-         if (index >= quote.text.length) clearInterval(interval);
+         setTypedText(fullText.slice(0, index));
+         if (index >= fullText.length) clearInterval(interval);
       }, 30);
 
       return () => clearInterval(interval);
    }, [quote]);
 
-   // Daily quote selection
+   // Daily quote logic
    useEffect(() => {
-      const fetchQuote = () => {
+      const fetchQuote = async () => {
          const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
          const currentKey = getTodayKey();
 
@@ -46,19 +45,24 @@ const QuoteOfTheDay = () => {
                   return;
                }
             } catch (e) {
-               console.warn('Corrupted quote:', e);
+               console.warn('Corrupted quote in storage:', e);
             }
          }
 
-         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-         const safeQuote = {
-            ...randomQuote,
-            image: typeof randomQuote.image === 'string' ? randomQuote.image : String(randomQuote.image),
-         };
+         try {
+            const { data } = await axios.get(QUOTES_API_URL);
+            const randomQuote = data[Math.floor(Math.random() * data.length)];
+            const safeQuote = {
+               ...randomQuote,
+               image: typeof randomQuote.image === 'string' ? randomQuote.image : fallbackAvatar,
+            };
 
-         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ date: currentKey, quote: safeQuote }));
-         setQuote(safeQuote);
-         setImageError(false);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ date: currentKey, quote: safeQuote }));
+            setQuote(safeQuote);
+            setImageError(false);
+         } catch (err) {
+            console.error('Failed to fetch quote:', err);
+         }
       };
 
       fetchQuote();
@@ -104,7 +108,9 @@ const QuoteOfTheDay = () => {
 
             <blockquote className="italic text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed min-h-[80px]">
                “{ typedText }”
-               <span className="animate-pulse text-purple-400">|</span>
+               { typedText.length < quote.text.length && (
+                  <span className="animate-pulse text-purple-400">|</span>
+               ) }
             </blockquote>
 
             <div className="flex items-center justify-center mt-6 gap-4 flex-wrap">
