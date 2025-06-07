@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, deletePost, getAllPosts, getSinglePost, incrementPostViews, toggleLike, updatePost } from '../controllers/postController.js';
+import { createPost, deletePost, getAllPosts, getSinglePost, toggleLike, updatePost, searchPosts } from '../controllers/postController.js';
 import upload from '../middlewares/multer.js';
 import authAdmin from '../middlewares/authAdmin.js';
 import { authUser } from '../middlewares/authUser.js';
@@ -12,6 +12,7 @@ postRouter.post('/create',
       { name: 'authorAvatar', maxCount: 1 }
    ]), createPost);
 
+postRouter.get('/search', searchPosts);
 postRouter.get('/all', authAdmin, getAllPosts);
 postRouter.get('/:id', authAdmin, getSinglePost);
 postRouter.delete('/delete/:id', authAdmin, deletePost);
@@ -22,7 +23,6 @@ postRouter.put('/edit/:id',
       { name: 'authorAvatar', maxCount: 1 }
    ]), updatePost);
 
-// postRouter.patch('/views/:slug', incrementPostViews);
 postRouter.post('/like/:slug', authUser, toggleLike);
 
 

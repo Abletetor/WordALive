@@ -207,8 +207,46 @@ const toggleLike = async (req, res) => {
    }
 };
 
+// ** Search Post
+const searchPosts = async (req, res) => {
+   const { q, type = 'suggestion' } = req.query;
+
+   if (!q || q.trim() === '') {
+      return res.status(400).json({ message: 'Search query is required.' });
+   }
+
+   const searchRegex = new RegExp(q.trim(), 'i');
+
+   try {
+      let results;
+
+      if (type === 'suggestion') {
+         // Return only titles for suggestion dropdown
+         results = await postModel.find({ title: searchRegex })
+            .limit(6)
+            .select('title slug');
+      } else {
+         // Return full post previews
+         results = await postModel.find({
+            $or: [
+               { title: searchRegex },
+               { excerpt: searchRegex },
+               { content: searchRegex },
+            ],
+         })
+            .limit(10)
+            .select('title excerpt slug createdAt author');
+      }
+
+      return res.status(200).json({ sucess: true, results });
+   } catch (error) {
+      console.error('Search failed:', error);
+      return res.status(500).json({ message: 'Server error. Please try again later.' });
+   }
+};
+
 export {
    createPost, getAllPosts, getSinglePost,
    deletePost, updatePost, incrementPostViews,
-   toggleLike,
+   toggleLike, searchPosts
 };
